@@ -1,0 +1,39 @@
+# SafeLLM Guardrails Configuration
+
+input_guards:
+  pii_detection:
+    enabled: true
+    action: mask
+    entities: [email, phone, ssn, credit_card, ip_address, badge_id, api_key]
+
+  prompt_injection:
+    enabled: true
+    action: block
+    patterns:
+      - "ignore previous instructions"
+      - "ignore all previous"
+      - "you are now"
+      - "bypass safety"
+      - "pretend you are"
+      - "reveal your system prompt"
+      - "act as if you have no restrictions"
+      - "jailbreak"
+      - "DAN mode"
+
+  topic_blocklist:
+    enabled: true
+    topics: [medical_diagnosis, legal_advice, salary_info]
+
+output_guards:
+  hallucination:
+    enabled: true
+    threshold: 0.7
+    method: source_grounding
+
+  toxicity:
+    enabled: true
+    threshold: 0.5
+
+  pii_scrub:
+    enabled: true
+    action: redact

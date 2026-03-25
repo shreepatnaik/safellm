@@ -1,0 +1,31 @@
+# SafeLLM Training Configuration
+
+model:
+  name: meta-llama/Llama-3.2-1B
+  dtype: bfloat16
+
+training:
+  strategy: ddp          # ddp | fsdp
+  epochs: 3
+  batch_size: 4
+  learning_rate: 2.0e-5
+  warmup_steps: 100
+  max_seq_length: 2048
+  gradient_accumulation: 4
+  gradient_checkpointing: true
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, v_proj, k_proj, o_proj]
+
+amp:
+  enabled: true
+  dtype: bfloat16
+
+checkpointing:
+  save_dir: checkpoints/
+  save_every_n_steps: 500
+  keep_last_n: 3

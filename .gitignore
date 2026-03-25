@@ -1,0 +1,11 @@
+checkpoints/
+data/training_data.jsonl
+data/raw_docs/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.pt
+*.pth
+.env
+.DS_Store
+wandb/
